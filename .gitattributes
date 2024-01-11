@@ -1,0 +1,17 @@
+# 
+# This per-repo configuration file
+#  controls End-of-line format to use
+#  in a Git checkout
+#
+
+# Set the default behavior, in case people don't have core.autocrlf set.
+* text=auto
+
+# Declare files that will always have LF line endings on checkout.
+*.py text eol=lf
+*.yml text eol=lf
+*.md text eol=lf
+
+# Denote all files that are truly binary and should not be modified.
+*.png binary
+*.jpg binary
