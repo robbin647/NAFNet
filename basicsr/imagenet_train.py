@@ -217,9 +217,6 @@ def main():
     total_epochs = math.ceil(total_iters / (num_iter_per_epoch))
 
     
-    ### DEBUG  2024-1-11
-    pdb.set_trace()
-    ###
     # create model
     if resume_state:  # resume training
         check_resume(opt, resume_state['iter'])
@@ -272,7 +269,9 @@ def main():
             model.update_learning_rate(
                 current_iter, warmup_iter=opt['train'].get('warmup_iter', -1))
             # training
-            model.feed_data(train_data, is_val=False)
+            ### train_data: [noisy: Tensor, clean: Tensor]
+            model.feed_data({'lq': train_data[0], 'gt': train_data[1]}, is_val=False)
+            
             result_code = model.optimize_parameters(current_iter, tb_logger)
             # if result_code == -1 and tb_logger:
             #     print('loss explode .. ')

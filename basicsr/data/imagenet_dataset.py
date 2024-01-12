@@ -65,7 +65,7 @@ class Imagenet(Dataset):
             gaussian_noise = g_std * torch.randn(img.shape)
             img = img.float() + poisson_noise + gaussian_noise
             img = torch.clamp(img, min=0, max=255)
-            result.append(img.byte())
+            result.append(img)
         
         return torch.cat(result)
 

@@ -8,7 +8,7 @@
 name: NAFNet-SIDD-width64
 model_type: ImageRestorationModel
 scale: 1
-num_gpu: 8
+num_gpu: 1
 manual_seed: 10
 
 datasets:
@@ -51,9 +51,9 @@ network_g:
 
 # path
 path:
-  pretrain_network_g: ~
+  pretrain_network_g: /root/autodl-tmp/NAFNet-SIDD-width64.pth
   strict_load_g: true
-  resume_state: /root/autodl-tmp/NAFNet-SIDD-width64.pth
+  resume_state: ~
 # resume_state is the path to pretrained model
 
 
@@ -67,10 +67,10 @@ train:
 
   scheduler:
     type: TrueCosineAnnealingLR
-    T_max: 400000
+    T_max: 40000
     eta_min: !!float 1e-7
 
-  total_iter: 400000
+  total_iter: 40000
   warmup_iter: -1 # no warm up
 
   # losses
