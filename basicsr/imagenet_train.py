@@ -22,8 +22,12 @@ import random
 import time
 import torch
 import pdb
+import torchvision
 
 from os import path as osp
+from torch.utils.tensorboard import SummaryWriter
+writer = SummaryWriter(log_dir="/content/log")
+tensorboard_log_interval = 10
 
 from basicsr.data import create_dataloader, create_dataset
 from basicsr.data.imagenet_dataset import Imagenet
@@ -260,6 +264,11 @@ def main():
         train_data = prefetcher.next()
 
         while train_data is not None:
+            grid = torchvision.utils.make_grid(train_data[0], nrow=8, normalize=True)
+            writer.add_image("Image/Noisy", grid, global_step=current_iter)
+            grid = torchvision.utils.make_grid(train_data[1], nrow=8, normalize=True)
+            writer.add_image("Image/Clean", grid, global_step=current_iter)
+
             data_time = time.time() - data_time
 
             current_iter += 1
@@ -312,6 +321,7 @@ def main():
         epoch += 1
 
     # end of epoch
+    writer.close() # close tensorboard logging
 
     consumed_time = str(
         datetime.timedelta(seconds=int(time.time() - start_time)))

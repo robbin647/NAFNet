@@ -83,9 +83,11 @@ class Imagenet(Dataset):
         clean = torchvision_F.to_tensor(crop)
         noisy = self.add_noise(clean, args={'p_scale': self.opt['p_scale'], 'g_std': self.opt['g_std']})
         # 给noisy, clean一块做data augment
+        stacked = torch.stack([noisy, clean], dim=0)
         if self.opt['augment']:
-            clean = self.opt['augment'](clean)
-            noisy = self.opt['augment'](noisy)
+            stacked = self.opt['agument'](stacked)
+        noisy = stacked[:3]
+        clean = stacked[3:]
         return noisy, clean
 
     def __len__(self):
