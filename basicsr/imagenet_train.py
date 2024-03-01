@@ -207,7 +207,7 @@ def main():
     result = create_train_val_dataloader(opt, logger)
     train_loader, train_sampler, val_loader, total_epochs, total_iters = result
     '''
-    imagenet_dataset = Imagenet({"path": "/root/autodl-tmp/imagenet"})
+    imagenet_dataset = Imagenet({"path": "/content/horns/images"})
     train_loader = create_dataloader(imagenet_dataset,
                                     dataset_opt={
                                         'phase': 'train',
