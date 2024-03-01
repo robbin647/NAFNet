@@ -51,7 +51,7 @@ class Imagenet(Dataset):
                 g_std=opt.get("guassian_std", 10),
                 augment=opt.get("data_augment", self.augment)
                 )
-        self.img_list = [item.name for item in os.scandir(opt["path"]) if item.is_file and item.name.endswith("JPEG")]
+        self.img_list = [item.name for item in os.scandir(opt["path"]) if item.is_file and (item.name.upper().endswith("JPEG") or item.name.upper().endswith("JPG"))]
 
     def add_noise(self, images, args={'p_scale': 1.0, 'g_std': 10.0}):
         result = []
@@ -95,7 +95,7 @@ class Imagenet(Dataset):
 
 
 if __name__ == "__main__":
-    imagenetset = Imagenet({"path": "/root/autodl-tmp/imagenet"})
+    imagenetset = Imagenet({"path": "/content/horns/images"})
     print("dataset length:", imagenetset.__len__())
     imagenetloader = DataLoader(imagenetset, batch_size=10, shuffle=False)
     for idx, item in enumerate(imagenetloader):
