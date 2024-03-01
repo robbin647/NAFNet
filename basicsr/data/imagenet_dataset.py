@@ -85,7 +85,7 @@ class Imagenet(Dataset):
         # 给noisy, clean一块做data augment
         stacked = torch.stack([noisy, clean], dim=0)
         if self.opt['augment']:
-            stacked = self.opt['agument'](stacked)
+            stacked = self.opt['argument'](stacked)
         noisy = stacked[:3]
         clean = stacked[3:]
         return noisy, clean
